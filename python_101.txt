@@ -1,0 +1,50 @@
+#Sequenzen
+
+quasi iterables
+- Listen
+- Schlüssel von Dictionaries
+- Zahlenbereiche: range(1,10)
+
+#Listen
+
+foo = []
+
+foo[-1] --> letztes Element (geht auch mit [-2]-->vorletzte, ...)
+
+foo.append(bar) --> bar am ende anhängen
+
+foo.insert(i, bar) --> bar an index i einfügen (nicht Position!)
+
+bar = foo.pop() --> letztes Listenelement der variable zuweisen und aus liste entfernen
+
+foo.len() --> gibt Anzahl der Listenelemente zurück
+
+
+#Tupel
+
+wie Listen, aber unveränderbar. Runde Klammern
+
+foo = ("bar", "baz")
+
+
+#Dictionaries
+
+ungeordnete Key-Value-Paare
+
+foo = {"bar" : "baz", "car" : "jazz"}
+
+foo["star"] = "mess" --> hinzufügen oder aktualisieren
+
+del foo["car] --> entfernen
+
+print foo[car]
+
+if ("bar" in foo):
+	do something -->prüfen, ob schlüssel existiert
+
+for myNewVar in foo: 		--> über dictionary iterieren
+	print(myNewVar) 	--> alle Schlüssel
+	print foo[myNewVar]	--> alle Werte
+
+len(foo) --> Anzahl items
+
