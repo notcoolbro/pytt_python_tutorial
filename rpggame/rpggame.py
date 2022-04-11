@@ -21,10 +21,21 @@ rooms = {
     "Garden" : {
         "north" : "dining room"
         },
-    "Billard Room": {
+    "Billard Room" : {
         "east" : "Hall",
+        "north": "Library",
         "item" : "almanach"
+        },
+    "Library": {
+        "south" : "Billard Room",
+        "east" : "Laboratory",
+        "item" : "book-of-life"
+        },
+    "Laboratory": {
+        "west" : "Library",
+        "item": "beam-o-mat"
         }
+    
     }
 
 #start the player in the Hall
@@ -54,6 +65,7 @@ def showStatus():
     print('Inventory : ' + str(inventory))
     #print an item if there is one
     if "item" in rooms[currentRoom]:
+        #check if item starts with a vowel and adapt output
         if rooms[currentRoom]["item"].startswith(("a" or "e" or "i" or "o" or "u")):
             print('You see an ' + rooms[currentRoom]["item"])
         else:
@@ -99,8 +111,10 @@ while True: #creates an infinite loop
         break
             
     #b: win
-    if currentRoom == "Garden" and "key" in inventory and "potion" in inventory:
+    if (currentRoom == "Garden" and "key" in inventory and "potion" in inventory)\
+       or (currentRoom == "Laboratory" and ("book of life" and "beam-o-mat") in inventory):
         print("Looks like we found us a final girl. YOU WIN!")
+        break
     
 #end of main game loop
 #end of main program
