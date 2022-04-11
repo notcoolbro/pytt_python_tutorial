@@ -3,11 +3,27 @@ inventory = []
 
 #a dictionary linking a room to other rooms
 rooms = {
-    'Hall': {
-        'south' : 'Kitchen'
+    "Hall": {
+        "south" : "Kitchen",
+        "east" : "Dining Room",
+        "west" : "Billard Room",
+        "item" : "key"
         },
-    'Kitchen' : {
-        'north' : 'Hall'
+    "Kitchen" : {
+        "north" : "Hall",
+        "item" : "monster"
+        },
+    "Dining Room" : {
+        "west" : "Hall",
+        "south" : "Garden",
+        "item" : "potion"
+        },
+    "Garden" : {
+        "north" : "dining room"
+        },
+    "Billard Room": {
+        "east" : "Hall",
+        "item" : "almanach"
         }
     }
 
@@ -15,6 +31,7 @@ rooms = {
 currentRoom = 'Hall'
 
 def showInstructions():
+    #multiline string acts as a docstring
     '''print a main menu and the commands'''
     print('''
     Welcome to your own RPG Game
@@ -37,20 +54,26 @@ def showStatus():
     print('Inventory : ' + str(inventory))
     #print an item if there is one
     if "item" in rooms[currentRoom]:
-        print('You see a ' + rooms[currentRoom]['item'])
+        if rooms[currentRoom]["item"].startswith(("a" or "e" or "i" or "o" or "u")):
+            print('You see an ' + rooms[currentRoom]["item"])
+        else:
+            print('You see a ' + rooms[currentRoom]["item"])
+
     print("---------------------------")
 
 
 #main program
+    
 showInstructions()
+
 #main game loop
-while True:
+while True: #creates an infinite loop
     showStatus()
     #wait for user input
     move = ''
     while move == '':
         move = input('>')
-    move = move.lower().split()
+    move = move.lower().split() #lower converts string to lowercase, split creates list of words
     #end game
     if move[0] == "exit":
         break
@@ -60,3 +83,24 @@ while True:
             currentRoom = rooms[currentRoom][move[1]]
         else:
             print("You can't go that way!")
+    #pick up an item
+    if move[0] == "get":
+        if "item" in rooms[currentRoom] and move[1] in rooms[currentRoom]["item"]:
+            inventory += [move[1]]
+            print ("picked up " + move[1] + "!")
+            del rooms[currentRoom]["item"]
+        else:
+            print("Can't get " + move[1] + "!")
+
+    #finish game            
+    #a: die
+    if "item" in rooms[currentRoom] and "monster" in rooms[currentRoom]['item']:
+        print("Seems like you found a monster. YOU LOSE.")
+        break
+            
+    #b: win
+    if currentRoom == "Garden" and "key" in inventory and "potion" in inventory:
+        print("Looks like we found us a final girl. YOU WIN!")
+    
+#end of main game loop
+#end of main program
