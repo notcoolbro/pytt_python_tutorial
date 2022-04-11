@@ -1,3 +1,5 @@
+import random
+
 #an inventory, which is initially empty
 inventory = []
 
@@ -11,7 +13,6 @@ rooms = {
         },
     "Kitchen" : {
         "north" : "Hall",
-        "item" : "monster"
         },
     "Dining Room" : {
         "west" : "Hall",
@@ -38,8 +39,6 @@ rooms = {
     
     }
 
-#start the player in the Hall
-currentRoom = 'Hall'
 
 def showInstructions():
     #multiline string acts as a docstring
@@ -73,8 +72,21 @@ def showStatus():
 
     print("---------------------------")
 
+def placeMonsterRandom():
+    '''pick a random room and place the monster in it'''
+    monsterRoom = ""
+    #eliminate hall from rooms to place monster in, so our hero doesn't die rightaway
+    while (monsterRoom == "") or (monsterRoom == "Hall"):
+        monsterRoom = random.choice(list(rooms))
+    rooms[monsterRoom]["item"] = "monster"
 
 #main program
+
+
+#start the player in the Hall
+currentRoom = 'Hall'
+
+placeMonsterRandom()
     
 showInstructions()
 
