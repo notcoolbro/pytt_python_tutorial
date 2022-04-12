@@ -80,7 +80,16 @@ def placeMonsterRandom():
     #eliminate hall from rooms to place monster in, so our hero doesn't die rightaway
     while (monsterRoom == "") or (monsterRoom == "Hall"):
         monsterRoom = random.choice(list(rooms))
-    rooms[monsterRoom]["item"] = "monster"
+    rooms[monsterRoom]["villain"] = "monster"
+
+'''
+def fightMonster(currentRoom)
+    coinFlip = random.randInt(0, 1)
+    if randInt == 0:
+        loseGame()
+    else:
+'''        
+    
 
 #main program
 
@@ -119,7 +128,7 @@ while True: #creates an infinite loop
 
     #finish game            
     #a: die
-    if "item" in rooms[currentRoom] and "monster" in rooms[currentRoom]['item']:
+    if "villain" in rooms[currentRoom] and "monster" in rooms[currentRoom]["villain"]:
         print("Seems like you found a monster. YOU LOSE.")
         break
             
