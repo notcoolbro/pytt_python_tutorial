@@ -1,4 +1,5 @@
 import random
+random.seed()
 
 #an inventory, which is initially empty
 inventory = []
@@ -65,6 +66,7 @@ def showStatus():
     #print an item if there is one
     if "item" in rooms[currentRoom]:
         #check if item starts with a vowel and adapt output
+        #doesn't work perfectly (e.g "unicorn"), but hey, this is python 101
         if rooms[currentRoom]["item"].startswith(("a" or "e" or "i" or "o" or "u")):
             print('You see an ' + rooms[currentRoom]["item"])
         else:
@@ -82,7 +84,6 @@ def placeMonsterRandom():
 
 #main program
 
-
 #start the player in the Hall
 currentRoom = 'Hall'
 
@@ -94,8 +95,8 @@ showInstructions()
 while True: #creates an infinite loop
     showStatus()
     #wait for user input
-    move = ""
-    while move == "":
+    move = ''
+    while move == '':
         move = input('>')
     move = move.lower().split() #lower converts string to lowercase, split creates list of words
     #end game
@@ -119,7 +120,7 @@ while True: #creates an infinite loop
     #finish game            
     #a: die
     if "item" in rooms[currentRoom] and "monster" in rooms[currentRoom]['item']:
-        print("Seems like you found a monster. YOU LOSE!")
+        print("Seems like you found a monster. YOU LOSE.")
         break
             
     #b: win
