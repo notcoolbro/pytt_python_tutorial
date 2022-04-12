@@ -4,7 +4,7 @@ import sys
 random.seed()
 
 #an inventory, which is initially empty
-inventory = ["potion"]
+inventory = []
 
 #a dictionary linking a room to other rooms
 rooms = {
@@ -16,7 +16,6 @@ rooms = {
         },
     "Kitchen" : {
         "north" : "Hall",
-        "villain" : "monster"
         },
     "Dining Room" : {
         "west" : "Hall",
@@ -74,17 +73,17 @@ def showStatus():
             print('You see an ' + rooms[currentRoom]["item"])
         else:
             print('You see a ' + rooms[currentRoom]["item"])
-
     print("---------------------------")
 
-def placeMonsterRandom():
-    '''pick a random room and place the monster in it'''
+def placeMonstersRandom(maxRooms = 1):
+    '''pick one or more rooms random room and place monster in each'''
+    numberOfMonsters = random.randint(1, maxRooms)
     monsterRoom = ""
-    #eliminate hall from rooms to place monster in, so our hero doesn't die rightaway
-    while (monsterRoom == "") or (monsterRoom == "Hall"):
-        monsterRoom = random.choice(list(rooms))
-    rooms[monsterRoom]["villain"] = "monster"
-
+    for i in range(numberOfMonsters):
+        #eliminate hall from rooms to place monster in, so our hero doesn't die rightaway
+        while (monsterRoom == "") or (monsterRoom == "Hall"):
+            monsterRoom = random.choice(list(rooms))
+        rooms[monsterRoom]["villain"] = "monster"
 
 def fightMonster():
     ''' if monster is found, decide randomly if win or lose'''
@@ -123,7 +122,7 @@ def winGame():
 #start the player in the Hall
 currentRoom = 'Hall'
 
-placeMonsterRandom()
+placeMonstersRandom(3)
     
 showInstructions()
 
