@@ -94,8 +94,8 @@ showInstructions()
 while True: #creates an infinite loop
     showStatus()
     #wait for user input
-    move = ''
-    while move == '':
+    move = ""
+    while move == "":
         move = input('>')
     move = move.lower().split() #lower converts string to lowercase, split creates list of words
     #end game
@@ -119,7 +119,7 @@ while True: #creates an infinite loop
     #finish game            
     #a: die
     if "item" in rooms[currentRoom] and "monster" in rooms[currentRoom]['item']:
-        print("Seems like you found a monster. YOU LOSE.")
+        print("Seems like you found a monster. YOU LOSE!")
         break
             
     #b: win
