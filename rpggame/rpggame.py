@@ -4,7 +4,7 @@ import sys
 random.seed()
 
 #an inventory, which is initially empty
-inventory = []
+inventory = ["potion"]
 
 #a dictionary linking a room to other rooms
 rooms = {
@@ -16,7 +16,7 @@ rooms = {
         },
     "Kitchen" : {
         "north" : "Hall",
-        #"villain" : "monster"
+        "villain" : "monster"
         },
     "Dining Room" : {
         "west" : "Hall",
@@ -97,8 +97,16 @@ def fightMonster():
     #determine if win or lose
     coinFlip = random.randint(0, 1)
     if coinFlip == 0:
-        print("The monster is unbeatable. YOU LOSE.")
-        loseGame()
+        if "potion" in inventory:
+            print('''
+            You win the fight, but the monster has hurt you seriously.
+            You use your potion to heal.
+                  ''')
+            inventory.remove("potion")
+            rooms[currentRoom].pop("villain")
+        else:
+            print("The monster is unbeatable. YOU LOSE.")
+            loseGame()
     else:
         rooms[currentRoom].pop("villain")
         print ("Success! You killed the monster. Now you can go on with your journey!")
