@@ -1,4 +1,6 @@
 import random
+import time
+import sys
 random.seed()
 
 #an inventory, which is initially empty
@@ -14,6 +16,7 @@ rooms = {
         },
     "Kitchen" : {
         "north" : "Hall",
+        #"villain" : "monster"
         },
     "Dining Room" : {
         "west" : "Hall",
@@ -21,7 +24,7 @@ rooms = {
         "item" : "potion"
         },
     "Garden" : {
-        "north" : "dining room"
+        "north" : "Dining Room"
         },
     "Billard Room" : {
         "east" : "Hall",
@@ -82,15 +85,31 @@ def placeMonsterRandom():
         monsterRoom = random.choice(list(rooms))
     rooms[monsterRoom]["villain"] = "monster"
 
-'''
-def fightMonster(currentRoom)
-    coinFlip = random.randInt(0, 1)
-    if randInt == 0:
+
+def fightMonster():
+    ''' if monster is found, decide randomly if win or lose'''
+    print("Seems like you found a monster. You fight it.")
+    print ("cling")
+    time.sleep(0.5)
+    print ("clong")
+    time.sleep(0.5)
+    print ("argh")
+    #determine if win or lose
+    coinFlip = random.randint(0, 1)
+    if coinFlip == 0:
+        print("The monster is unbeatable. YOU LOSE.")
         loseGame()
     else:
-'''        
-    
+        rooms[currentRoom].pop("villain")
+        print ("Success! You killed the monster. Now you can go on with your journey!")
 
+def loseGame():
+    sys.exit()
+
+def winGame():
+    print("Looks like we found us a final girl. YOU WIN!")
+    sys.exit() 
+        
 #main program
 
 #start the player in the Hall
@@ -129,14 +148,14 @@ while True: #creates an infinite loop
     #finish game            
     #a: die
     if "villain" in rooms[currentRoom] and "monster" in rooms[currentRoom]["villain"]:
-        print("Seems like you found a monster. YOU LOSE.")
-        break
+        fightMonster()
+
             
     #b: win
     if (currentRoom == "Garden" and "key" in inventory and "potion" in inventory)\
        or (currentRoom == "Laboratory" and ("book of life" and "beam-o-mat") in inventory):
-        print("Looks like we found us a final girl. YOU WIN!")
-        break
+        winGame()
+
     
 #end of main game loop
 #end of main program
